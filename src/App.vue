@@ -8,20 +8,16 @@
 
 <style></style>
 
+
 <script>
+
 export default {
   name: "App",
 };
 </script>
 
-<style lang="less" scoped>
-.app {
-  background: #fff;
-  padding-left: 50px;
-  padding-right: 50px;
-  .header {
-    height: 80px;
-    line-height: 80px;
-  }
+<style scoped>
+.container {
+  min-height: 500px;
 }
 </style>

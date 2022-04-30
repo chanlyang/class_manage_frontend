@@ -18,9 +18,10 @@ export default {
     console.log("挂载数据");
     const map = this.$echarts.init(this.$refs.chinaMap),
       data = [
-        { name: "北京", value: 632, riskNum: 563, riskPointNum: 69 },
+        { name: "北京", value: 63211, riskNum: 563, riskPointNum: 69 },
         { name: "黑龙江", value: 1623, riskNum: 948, riskPointNum: 675 },
-        { name: "河北", value: 98, riskNum: 98, riskPointNum: "343" },
+        { name: "河北", value: 981, riskNum: 98, riskPointNum: "343" },
+        { name: "上海", value: 26321, riskNum: 563, riskPointNum: 69 },
       ];
     const options = this.mapChinaOptions(data);
     map.setOption(options);
