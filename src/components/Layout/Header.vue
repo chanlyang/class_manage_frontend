@@ -42,7 +42,7 @@
 
         <b-navbar-item v-else tag="div">
           <b-navbar-item tag="div">
-            <img :src="'http://127.0.0.1:8088' + imgUrl" alt="headUrl" />
+            <img :src="'http://127.0.0.1:8088' + imgUrl" alt="headUrl" style="height: 80px;border-radius: 30%"/> 
           </b-navbar-item>
 
           <b-navbar-item tag="div">

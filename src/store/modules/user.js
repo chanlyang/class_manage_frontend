@@ -1,5 +1,5 @@
 import { getUserInfo, login, logout } from "@/api/auth/auth";
-import { getToken, setToken, removeToken, setRoleId, removeRoleId, setUser, getUser, removeUser, setUserImg, getUserImg } from "@/utils/auth";
+import { getToken, setToken, removeToken, setRoleId, removeRoleId, removeAll, setUser, getUser, removeUser, setUserImg, getUserImg, removeUserImg } from "@/utils/auth";
 
 const state = {
   token: getToken(), // token
@@ -67,7 +67,15 @@ const actions = {
           console.log(response);
           commit("SET_TOKEN_STATE", "");
           commit("SET_USER_STATE", "");
+          setUser('');
+          setToken('');
+          setRoleId('');
+          setUserImg('');
           removeAll();
+          removeRoleId();
+          removeToken();
+          removeUser();
+          removeUserImg();
           resolve();
         })
         .catch((error) => {

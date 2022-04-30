@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <!-- <div class="header">登陆，注册</div> -->
+     <div class="header">这个是提醒你的，一会删掉就行，退出登录我已经搞了，下拉我的之后不用再弄退出登录了，用户登录完之后roleId我已经拿到了，你看看怎么跳转吧</div> 
 
     <router-view />
   </div>
