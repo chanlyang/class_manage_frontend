@@ -1,21 +1,26 @@
 <template>
-  <div class="home">
-    <div class="header">通知🔔 {{ notice.content }}</div>
-    <div class="container">
-      <div class="leftBox">
-        <NumLabel
-          v-for="(item, index) in labeList"
-          :key="{ index }"
-          class=""
-          :title="item.title"
-          :total="item.total"
-        ></NumLabel>
-      </div>
-      <div class="rightBox">
-        <ChinaMap></ChinaMap>
+  <dev>
+    <div class="mb-5">
+      <Header></Header>
+    </div>
+    <div class="box">通知🔔 {{ notice.content }}</div>
+    <div class="home">
+      <div class="container">
+        <div class="leftBox">
+          <NumLabel
+            v-for="(item, index) in labeList"
+            :key="{ index }"
+            class=""
+            :title="item.title"
+            :total="item.total"
+          ></NumLabel>
+        </div>
+        <div class="rightBox">
+          <ChinaMap></ChinaMap>
+        </div>
       </div>
     </div>
-  </div>
+  </dev>
 </template>
 
 <script>
@@ -24,10 +29,12 @@
 import { getNotice } from "@/api/notice";
 import ChinaMap from "../components/ChinaMap.vue";
 import NumLabel from "../components/NumLabel.vue";
+import Header from "../components/Layout/Header";
+//import Footer from "@/components/Layout/Footer";
 
 export default {
   name: "HomeView",
-  components: { ChinaMap, NumLabel },
+  components: { ChinaMap, NumLabel, Header },
   data() {
     return {
       notice: {

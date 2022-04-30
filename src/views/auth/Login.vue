@@ -15,14 +15,14 @@
             label-width="100px"
             class="demo-ruleForm"
           >
-            <el-form-item label="账号" prop="name">
-              <el-input v-model="ruleForm.name"></el-input>
+            <el-form-item label="学号" prop="userId">
+              <el-input v-model="ruleForm.userId"></el-input>
             </el-form-item>
 
-            <el-form-item label="密码" prop="pass">
+            <el-form-item label="密码" prop="password">
               <el-input
                 type="password"
-                v-model="ruleForm.pass"
+                v-model="ruleForm.password"
                 autocomplete="off"
               ></el-input>
             </el-form-item>
@@ -45,6 +45,9 @@
 </template>
 
 <script>
+import { getRoleId } from "@/utils/auth";
+
+
 export default {
   name: "Login",
   data() {
@@ -52,8 +55,8 @@ export default {
       redirect: undefined,
       loading: false,
       ruleForm: {
-        name: "",
-        pass: "",
+        userId: "",
+        password: "",
         rememberMe: true,
       },
       rules: {
@@ -91,7 +94,9 @@ export default {
                 type: "success",
                 duration: 2000,
               });
-
+              this.$store.dispatch("user/getInfo")
+              console.log(getRoleId())
+              //上面的代码从cookie里获取到了roleId, 1是学生跳前台页面，2是老师跳后台管理界面
               setTimeout(() => {
                 this.loading = false;
                 this.$router.push({ path: this.redirect || "/" });

@@ -1,15 +1,12 @@
 <template>
   <div class="container">
-        <div class="header">登陆，注册</div>
+    <!-- <div class="header">登陆，注册</div> -->
 
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
-<style>
-
-</style>
-
+<style></style>
 
 <script>
 export default {

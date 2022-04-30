@@ -9,6 +9,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 import echarts from 'echarts';
 import china from 'echarts/map/json/china.json'
 
+
 echarts.registerMap('china', china)
 Vue.prototype.$echarts = echarts
 

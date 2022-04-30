@@ -1,9 +1,10 @@
 import { getUserInfo, login, logout } from "@/api/auth/auth";
-import { getToken, setToken, removeToken } from "@/utils/auth";
+import { getToken, setToken, removeToken, setRoleId, removeRoleId, setUser, getUser, removeUser, setUserImg, getUserImg } from "@/utils/auth";
 
 const state = {
   token: getToken(), // token
-  user: "", // 用户对象
+  user: getUser(), // 用户名，
+  imageUrl: getUserImg(),
 };
 
 const mutations = {
@@ -19,13 +20,14 @@ const actions = {
   // 用户登录
   login({ commit }, userInfo) {
     console.log(userInfo);
-    const { name, pass, rememberMe } = userInfo;
+    const { userId, password, rememberMe } = userInfo;
     return new Promise((resolve, reject) => {
-      login({ username: name.trim(), password: pass, rememberMe: rememberMe })
+      login({ userId: userId.trim(), password: password, rememberMe: rememberMe })
         .then((response) => {
           const { data } = response;
           commit("SET_TOKEN_STATE", data.token);
           setToken(data.token);
+          setRoleId(data.roleId);
           resolve();
         })
         .catch((error) => {
@@ -46,6 +48,9 @@ const actions = {
             resolve();
             reject("Verification failed, please Login again.");
           }
+          console.log(data)
+          setUser(data.userName)
+          setUserImg(data.imageUrl)
           commit("SET_USER_STATE", data);
           resolve(data);
         })
@@ -62,7 +67,7 @@ const actions = {
           console.log(response);
           commit("SET_TOKEN_STATE", "");
           commit("SET_USER_STATE", "");
-          removeToken();
+          removeAll();
           resolve();
         })
         .catch((error) => {
