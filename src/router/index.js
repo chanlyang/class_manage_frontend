@@ -24,6 +24,12 @@ const routes = [
     meta: { title: "登录" },
   },
   {
+    path: "/studentHome",
+    name: 'studentHome',
+    component: () => import("@/views/pages/studentHome"),
+    meta: { title: "学生首页" },
+  },
+  {
     path: "/404",
     name: "404",
     component: () => import("@/views/error/404"),

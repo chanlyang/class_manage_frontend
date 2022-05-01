@@ -1,7 +1,6 @@
 <template>
   <div>
-    <Layout></Layout>
-    <!-- <div class="home">
+    <div class="home">
       <div class="container">
         <div class="leftBox">
           <NumLabel
@@ -16,27 +15,20 @@
           <ChinaMap></ChinaMap>
         </div>
       </div>
-    </div> -->
+    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-
-import { getNotice } from "@/api/notice";
-import ChinaMap from "../components/ChinaMap.vue";
-import NumLabel from "../components/NumLabel.vue";
-import Layout from "../components/Layout";
+import ChinaMap from "@/components/ChinaMap.vue";
+import NumLabel from "@/components/NumLabel.vue";
 //import Footer from "@/components/Layout/Footer";
 
 export default {
   name: "HomeView",
-  components: { ChinaMap, NumLabel, Layout },
+  components: { ChinaMap, NumLabel },
   data() {
     return {
-      notice: {
-        content: "",
-      },
       labeList: [
         {
           title: "现有确诊",
