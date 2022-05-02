@@ -16,32 +16,32 @@
 
       <el-form-item label="是否发烧" prop="isFever">
         <el-radio-group v-model="ruleForm.isFever">
-          <el-radio label="1">是</el-radio>
-          <el-radio label="0">否</el-radio>
+          <el-radio :label="1">是</el-radio>
+          <el-radio :label="0">否</el-radio>
         </el-radio-group>
       </el-form-item>
       <el-form-item label="是否咳嗽" prop="isCough">
         <el-radio-group v-model="ruleForm.isCough">
-          <el-radio label="1">是</el-radio>
-          <el-radio label="0">否</el-radio>
+          <el-radio :label="1">是</el-radio>
+          <el-radio :label="0">否</el-radio>
         </el-radio-group>
       </el-form-item>
       <el-form-item label="其他不适" prop="otherDiscomfort">
         <el-radio-group v-model="ruleForm.otherDiscomfort">
-          <el-radio label="1">是</el-radio>
-          <el-radio label="0">否</el-radio>
+          <el-radio :label="1">是</el-radio>
+          <el-radio :label="0">否</el-radio>
         </el-radio-group>
       </el-form-item>
       <el-form-item label="是否核酸" prop="isNucleicAcid">
         <el-radio-group v-model="ruleForm.isNucleicAcid">
-          <el-radio label="1">是</el-radio>
-          <el-radio label="0">否</el-radio>
+          <el-radio :label="1">是</el-radio>
+          <el-radio :label="0">否</el-radio>
         </el-radio-group>
       </el-form-item>
       <el-form-item label="是否留校" prop="isOutSchool">
         <el-radio-group v-model="ruleForm.isOutSchool">
-          <el-radio label="1">是</el-radio>
-          <el-radio label="0">否</el-radio>
+          <el-radio :label="1">是</el-radio>
+          <el-radio :label="0">否</el-radio>
         </el-radio-group>
       </el-form-item>
       <el-form-item label="疫苗接种" prop="vaccineNum">
@@ -71,10 +71,10 @@ export default {
     return {
       ruleForm: {
         healthCode: "",
-        isFever: 1,
-        isCough: 1,
-        otherDiscomfort: 1,
-        isNucleicAcid: 1,
+        isFever: "",
+        isCough: "",
+        otherDiscomfort: "",
+        isNucleicAcid: "",
         vaccineNum: "",
         isOutSchool: "",
         otherThings: "",
@@ -90,10 +90,7 @@ export default {
             message: "每日填报完成",
             type: "success",
           });
-          setTimeout(() => {
-            this.loading = false;
-            this.$router.push({ path: this.redirect || "/home" });
-          }, 0.1 * 1000);
+          this.$router.push({ path: this.redirect || "/" });
         } else {
           this.$message.error("填报失败" + message);
         }

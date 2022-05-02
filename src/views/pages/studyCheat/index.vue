@@ -11,7 +11,7 @@
       <div class="right-box">时间:{{ date }}</div>
     </div>
     <div class="cheat-content">
-      {{ contentHtml }}
+      <dev v-html="contentHtml" class="html-box"></dev>
     </div>
     <dev>
       <el-form-item> </el-form-item>
@@ -26,7 +26,7 @@ export default {
   name: "StudyCheat",
   data() {
     return {
-      anitId : 1,
+      anitId: 1,
       status: 1,
       date: "",
       title: "",
@@ -50,10 +50,14 @@ export default {
         }
       });
     },
-     onSubmit() {
+    onSubmit() {
       punch(this.anitId).then((value) => {
         const { code, message } = value;
-        alert(message);
+        this.$message({
+          message: "请假申请已提交",
+          type: "success",
+        });
+        this.todayInfo();
       });
     },
   },

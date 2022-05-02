@@ -108,10 +108,7 @@ export default {
             message: "请假申请已提交",
             type: "success",
           });
-          setTimeout(() => {
-            this.loading = false;
-            this.$router.push({ path: this.redirect || "/" });
-          }, 0.1 * 1000);
+          this.$router.push({ path: this.redirect || "/" });
         } else {
           this.$message.error("请假申请提交失败" + message);
         }

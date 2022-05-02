@@ -79,10 +79,8 @@ export default {
             message: "修改成功",
             type: "success",
           });
-          setTimeout(() => {
-            this.loading = false;
-            this.$router.push({ path: this.redirect || "/" });
-          }, 0.1 * 1000);
+          this.userInfo();
+          this.$router.push({ path: this.redirect || "/" });
         } else {
           this.$message.error("修改失败" + message);
         }

@@ -9,7 +9,7 @@
             </b-navbar-item>
           </template>
           <template slot="end">
-             <b-navbar-item tag="div">
+            <b-navbar-item tag="div">
               <b-navbar-item tag="div">
                 <img
                   :src="'http://127.0.0.1:8088' + imgUrl"
@@ -81,11 +81,10 @@ export default {
       console.log(index);
     },
     async logout() {
+      this.$router.push({ path: this.redirect || "/" });
       this.$store.dispatch("user/logout").then(() => {
         this.$message.info("退出登录成功");
-        setTimeout(() => {
-          this.$router.push({ path: this.redirect || "/" });
-        }, 500);
+        setTimeout(() => {}, 500);
       });
     },
   },

@@ -35,10 +35,10 @@ export default {
           userId: "",
           name: "",
           reason: "",
-          startTime: "2022-05-01",
-          endTime: "2022-05-02",
+          startTime: "",
+          endTime: "",
           status: 2,
-          userName: "张三",
+          userName: "",
         },
       ],
     };

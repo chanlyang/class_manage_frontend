@@ -28,7 +28,10 @@ export default {
     handAccept(noticeId) {
       acceptNotice(noticeId).then((value) => {
         const { code, message } = value;
-        alert(message);
+        this.$message({
+            message: "已接收通知",
+            type: "success",
+          });
       });
     },
   },

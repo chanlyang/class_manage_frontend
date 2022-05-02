@@ -71,11 +71,11 @@ export default {
         }
       });
     },
-  },
-  handleCurrentChange(newPage) {
-    console.log("打印一下" + newPage);
-    this.currPage = newPage;
-    this.noticeHandle();
+    handleCurrentChange(newPage) {
+      console.log("打印一下" + newPage);
+      this.currPage = newPage;
+      this.noticeHandle();
+    },
   },
 };
 </script>
