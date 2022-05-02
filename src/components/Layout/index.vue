@@ -73,6 +73,7 @@
           :key="index"
         >
           <component
+            v-if="activeName === tab.name"
             :is="tab.component"
             :query="JSON.stringify(tab.query)"
           ></component>
