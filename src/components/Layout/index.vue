@@ -103,21 +103,25 @@
           </el-carousel>
         </div>
       </div>
-
-      <el-tabs v-model="activeName" @tab-click="handleClick">
-        <el-tab-pane
-          v-for="(tab, index) in tabs"
-          :label="tab.label"
-          :name="tab.name"
-          :key="index"
-        >
-          <component
-            v-if="activeName === tab.name"
-            :is="tab.component"
-            :query="JSON.stringify(tab.query)"
-          ></component>
-        </el-tab-pane>
-      </el-tabs>
+      <div v-if="token">
+        <el-tabs v-model="activeName" @tab-click="handleClick">
+          <el-tab-pane
+            v-for="(tab, index) in tabs"
+            :label="tab.label"
+            :name="tab.name"
+            :key="index"
+          >
+            <component
+              v-if="activeName === tab.name"
+              :is="tab.component"
+              :query="JSON.stringify(tab.query)"
+            ></component>
+          </el-tab-pane>
+        </el-tabs>
+      </div>
+      <div v-else>
+        <HomeView></HomeView>
+      </div>
     </el-main>
   </el-container>
 </template>
@@ -128,10 +132,11 @@ import { mapGetters } from "vuex";
 import menuTab from "@/router/menu.js";
 import components from "@/router/components";
 import { queryPageByAccept } from "@/api/notice";
+import HomeView from "@/views/HomeView.vue";
 
 export default {
   name: "Layout",
-  components: components,
+  components: { components, HomeView },
   data() {
     return {
       logoImg: require("@/assets/image/logo.png"),
@@ -179,8 +184,7 @@ export default {
         }
       });
     },
-    handleClick() {
-    },
+    handleClick() {},
   },
 };
 </script>
