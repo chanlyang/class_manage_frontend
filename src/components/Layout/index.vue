@@ -64,7 +64,46 @@
       </header>
     </el-header>
     <el-main>
-      <div class="box">通知🔔 {{ notice.content }}</div>
+      <div class="box" v-if="token == null || token === ''">
+        🌟🌟🌟 ✨✨✨欢迎来到班级内部系统主页✨✨✨ 🌟🌟🌟
+        您还未登陆，快去登录吧！✨✨✨ 🌟🌟🌟
+      </div>
+      <dev class="box" v-else>
+        🌟🌟🌟 ✨✨✨欢迎来到班级内部系统主页✨✨✨ 🌟🌟🌟
+        快去今日疫情填报和反诈打卡吧 ✨✨✨ 🌟🌟🌟
+      </dev>
+
+      <div class="bs-sysMsg" v-if="token == null || token === ''">
+        <i class="el-alert__icon el-icon-warning"></i>
+        <div class="msg__content">
+          <el-carousel
+            height="28px"
+            direction="vertical"
+            indicator-position="none"
+            :autoplay="true"
+          >
+            <el-carousel-item v-for="item in systemMsg" :key="item.id">
+              {{ item.title }}
+            </el-carousel-item>
+          </el-carousel>
+        </div>
+      </div>
+      <div class="bs-sysMsg" v-else>
+        <i class="el-alert__icon el-icon-warning"></i>
+        <div class="msg__content">
+          <el-carousel
+            height="28px"
+            direction="vertical"
+            indicator-position="none"
+            :autoplay="true"
+          >
+            <el-carousel-item v-for="item in notice" :key="item.noticeId">
+              {{ item.title }} : {{ item.content }}
+            </el-carousel-item>
+          </el-carousel>
+        </div>
+      </div>
+
       <el-tabs v-model="activeName" @tab-click="handleClick">
         <el-tab-pane
           v-for="(tab, index) in tabs"
@@ -88,6 +127,8 @@ import { getUser, getUserImg } from "@/utils/auth";
 import { mapGetters } from "vuex";
 import menuTab from "@/router/menu.js";
 import components from "@/router/components";
+import { queryPageByAccept } from "@/api/notice";
+import noticeHandle from "@/views/pages/pastNotice/index";
 
 export default {
   name: "Layout",
@@ -97,15 +138,29 @@ export default {
       logoImg: require("@/assets/image/logo.png"),
       userName: getUser(),
       imgUrl: getUserImg(),
-      notice: {
-        content: "消息通知",
-      },
+      notice: [
+        {
+          title: "",
+          noticeId: "",
+          content: "",
+        },
+      ],
+      systemMsg: [
+        { id: 1, title: "请登录后查看通知" },
+        { id: 2, title: "登录后记得每日疫情填报哦！！" },
+        { id: 3, title: "不要忘了反诈学习打卡哦！！！" },
+      ],
       tabs: menuTab,
       activeName: "TodayEpidemic",
     };
   },
   computed: {
     ...mapGetters(["token", "user", "imageUrl"]),
+  },
+  mounted() {
+    if (this.token != null && this.token != "") {
+      this.queryPageNotice();
+    }
   },
   methods: {
     async logout() {
@@ -116,6 +171,20 @@ export default {
         }, 500);
       });
     },
+    queryPageNotice() {
+      queryPageByAccept(1, 20).then((res) => {
+        const { code, data } = res;
+        console.log(data);
+        if (code === 200) {
+          this.notice = data.list;
+        }
+      });
+    },
+    handleClick() {
+      if (tab.lable === "往期通知") {
+        noticeHandle();
+      }
+    },
   },
 };
 </script>
@@ -124,5 +193,34 @@ export default {
 input {
   width: 80%;
   height: 86%;
+}
+
+/*轮翻消息*/
+.bs-sysMsg {
+  position: relative;
+  display: flex;
+  width: 100%;
+  padding: 8px 12px;
+  margin-bottom: 10px;
+  border-radius: 2px;
+  color: #e6a23c;
+  background-color: #fdf6ec;
+  overflow: hidden;
+  opacity: 1;
+  align-items: center;
+  transition: opacity 0.2s;
+}
+.bs-sysMsg .msg__content {
+  display: table-cell;
+  padding: 0 8px;
+  width: 100%;
+}
+.bs-sysMsg .msg__content a.item {
+  color: #e6a23c;
+  font-size: 14px;
+  opacity: 0.75;
+}
+.bs-sysMsg .msg__content a.item:hover {
+  text-decoration: underline;
 }
 </style>

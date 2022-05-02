@@ -40,3 +40,12 @@ export function logout() {
     method: 'get'
   })
 }
+
+// 修改用户信息
+export function updateInfo(data) {
+  return request({
+    url: '/admin/user/updateInfo',
+    method: 'post',
+    data: data
+  })
+}

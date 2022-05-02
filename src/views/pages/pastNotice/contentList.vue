@@ -7,7 +7,7 @@
     >
       <div class="left_box">
         <div>主题：{{ item.title }}</div>
-        <div>时间：{{ item.date }}</div>
+        <div>时间：{{ item.createTime }}</div>
       </div>
       <div class="midd_box">{{ item.content }}</div>
       <div class="right_box" v-if="type === 1">
