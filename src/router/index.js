@@ -32,7 +32,7 @@ const routes = [
   {
     path: "/sysHome",
     name: 'sysHome',
-    //component: () => import("@/views/systems/home/index.vue"),
+    component: () => import("@/views/systems/home/index.vue"),
     meta: { title: "管理系统" },
   },
   {

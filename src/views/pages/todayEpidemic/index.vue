@@ -1,8 +1,11 @@
 <template>
-  <div class="todaySwrap">
-    <div v-for="(item, index) in tabLists" :key="{ index }" class="today-box">
-      <div>{{ item.name }}</div>
-      <div>{{ item.total }}</div>
+  <div>
+    <div v-if="showNitce" class="s_notice">通知:有异常</div>
+    <div class="todaySwrap">
+      <div v-for="(item, index) in tabLists" :key="{ index }" class="today-box">
+        <div>{{ item.name }}</div>
+        <div>{{ item.total }}</div>
+      </div>
     </div>
   </div>
 </template>
@@ -46,12 +49,18 @@ export default {
           total: 200,
         },
       ],
+      showNitce: true,
     };
   },
 };
 </script>
 
 <style lang="less" scope>
+.s_notice {
+  margin-bottom: 10px;
+  height: 40px;
+  text-align: center;
+}
 .todaySwrap {
   display: flex;
   flex-wrap: wrap;

@@ -1,10 +1,10 @@
 <template>
-  <div>后台管理系统</div>
+  <div>学生填报</div>
 </template>
 
 <script>
 export default {
-  name: "sysHome",
+  name: "StudentFillList",
 };
 </script>
 
