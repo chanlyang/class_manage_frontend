@@ -11,7 +11,7 @@ export function info() {
 //反诈信息打卡
 export function punch(anitId) {
     return request({
-        url: '/api/fraud/',
+        url: '/api/fraud/punch',
         method: 'get',
         params: { anitId: anitId }
     })
