@@ -51,7 +51,6 @@ export default {
     };
   },
   mounted() {
-    console.log("细腻");
     this.noticeHandle();
   },
   methods: {

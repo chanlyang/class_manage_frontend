@@ -1,26 +1,61 @@
 <template>
   <div>
     <div class="header">
-      <div class="left-box">今日学习:已打卡</div>
+      <div class="left-box">
+        今日学习:
+        <dev class="right" v-if="status === 0">
+          <el-button type="primary" @click="onSubmit">打卡</el-button>
+        </dev>
+      </div>
       <div class="cheat-title">{{ title }}</div>
       <div class="right-box">时间:{{ date }}</div>
     </div>
-
     <div class="cheat-content">
       {{ contentHtml }}
     </div>
+    <dev>
+      <el-form-item> </el-form-item>
+    </dev>
   </div>
 </template>
 
 <script>
+import { info, punch } from "@/api/anti";
+
 export default {
   name: "StudyCheat",
   data() {
     return {
-      date: "2022-05-01",
-      title: "标题",
-      contentHtml: "内容，富文本可能有图标",
+      anitId : 1,
+      status: 1,
+      date: "",
+      title: "",
+      contentHtml: "",
     };
+  },
+  mounted() {
+    this.todayInfo();
+  },
+  methods: {
+    todayInfo() {
+      info().then((res) => {
+        const { code, data } = res;
+        console.log(data);
+        if (code === 200) {
+          this.anitId = data.id;
+          this.status = data.isPunch;
+          this.date = data.createTime;
+          this.title = data.title;
+          this.contentHtml = data.content;
+        }
+      });
+    },
+     onSubmit() {
+      punch(this.anitId).then((value) => {
+        const { code, message } = value;
+        alert(message);
+      });
+    },
   },
 };
 </script>

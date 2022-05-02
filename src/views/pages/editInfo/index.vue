@@ -13,9 +13,9 @@
         </el-col>
       </el-form-item>
 
-      <el-form-item label="姓名" prop="name">
+      <el-form-item label="姓名" prop="userName">
         <el-col :span="12">
-          <el-input v-model="ruleForm.name"></el-input>
+          <el-input v-model="ruleForm.userName"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="电话" prop="phone">
@@ -38,15 +38,17 @@
 </template>
 
 <script>
+import { getUserInfo, updateInfo } from "@/api/auth/auth";
+
 export default {
   name: "EditInfo",
   data() {
     return {
       ruleForm: {
-        userId: "1001",
-        name: "张三",
-        phone: "13614514870",
-        email: "1289385390@qq.com",
+        userId: "",
+        userName: "",
+        phone: "",
+        email: "",
       },
       rules: {
         name: [{ required: true, message: "请输入姓名", trigger: "blur" }],
@@ -55,8 +57,39 @@ export default {
       },
     };
   },
+  mounted() {
+    console.log("细腻");
+    this.userInfo();
+  },
+  methods: {
+    userInfo() {
+      getUserInfo().then((res) => {
+        const { code, data } = res;
+        console.log(data);
+        if (code === 200) {
+          this.ruleForm = data;
+        }
+      });
+    },
+    async submitForm(ruleForm) {
+      updateInfo(this.ruleForm).then((value) => {
+        const { code, message } = value;
+        if (code === 200) {
+          this.$message({
+            message: "修改成功",
+            type: "success",
+          });
+          setTimeout(() => {
+            this.loading = false;
+            this.$router.push({ path: this.redirect || "/" });
+          }, 0.1 * 1000);
+        } else {
+          this.$message.error("修改失败" + message);
+        }
+      });
+    },
+  },
 };
 </script>
 
-<style>
-</style>
+<style></style>
