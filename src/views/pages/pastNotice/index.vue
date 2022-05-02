@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
+    <el-tabs v-model="activeName" type="card" @tab-click="noticeHandle">
       <el-tab-pane
         v-for="(item, index) in tabData"
         :key="{ index }"
@@ -8,7 +8,14 @@
         :name="item.name"
       >
         <ContentList :list="list" :type="item.type"></ContentList>
-        <el-pagination layout="prev, pager, next" :total="50"> </el-pagination>
+        <el-pagination
+          @current-change="handleCurrentChange"
+          layout="prev, pager, next"
+          :total="totalCount"
+          :current-page="currPage"
+          :page-size="pageSize"
+        >
+        </el-pagination>
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -24,13 +31,13 @@ export default {
 
   data() {
     return {
-      activeName: "unaccepted",
+      activeName: "0",
       totalCount: 10,
-      pageSize: 10,
+      pageSize: 5,
       currPage: 1,
       tabData: [
-        { label: "未接受", name: "unaccepted", type: 1 },
-        { label: "已接受", name: "accepted", type: 2 },
+        { label: "未接受", name: "0", type: 1 },
+        { label: "已接受", name: "1", type: 2 },
       ],
       list: [
         {
@@ -43,21 +50,33 @@ export default {
       ],
     };
   },
-
+  mounted() {
+    console.log("细腻");
+    this.noticeHandle();
+  },
   methods: {
     noticeHandle() {
-      console.log("打印一下试试");
-      queryPageByAccept(currPage, pageSize).then((res) => {
+      console.log("打印一下试试" + this.activeName);
+      queryPageByAccept(this.currPage, this.pageSize).then((res) => {
         const { code, data } = res;
         console.log(data);
         if (code === 200) {
-          this.notice = data.list;
+          if (this.activeName === "1") {
+            this.list = data.list.filter((v) => v.isRead === 1);
+          } else {
+            this.list = data.list.filter((v) => v.isRead === 0);
+          }
           this.totalCount = data.totalCount;
           this.pageSize = data.pageSize;
           this.currPage = data.currPage;
         }
       });
     },
+  },
+  handleCurrentChange(newPage) {
+    console.log("打印一下" + newPage);
+    this.currPage = newPage;
+    this.noticeHandle();
   },
 };
 </script>

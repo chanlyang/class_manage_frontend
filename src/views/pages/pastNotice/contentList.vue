@@ -1,38 +1,35 @@
 <template>
   <div>
-    <div
-      class="contentPanel"
-      v-for="(item, index) in list"
-      :key="`cc_${index}`"
-    >
+    <div class="contentPanel" v-for="item in list" :key="`cc_${item.noticeId}`">
       <div class="left_box">
         <div>主题：{{ item.title }}</div>
         <div>时间：{{ item.createTime }}</div>
       </div>
       <div class="midd_box">{{ item.content }}</div>
       <div class="right_box" v-if="type === 1">
-        <el-button @click="handAccept" type="primary">主要按钮</el-button>
+        <el-button @click="handAccept(item.noticeId)" type="primary"
+          >接受通知</el-button
+        >
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { acceptNotice } from "@/api/notice";
+
 export default {
   name: "ConentList",
   props: {
     list: [],
     type: "",
   },
-  created() {
-    console.log("获取数据");
-  },
-  mounted() {
-    console.log("细腻");
-  },
   methods: {
-    handAccept() {
-      console.log("接受");
+    handAccept(noticeId) {
+      acceptNotice(noticeId).then((value) => {
+        const { code, message } = value;
+        alert(message);
+      });
     },
   },
 };
