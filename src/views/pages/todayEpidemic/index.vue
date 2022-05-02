@@ -11,6 +11,8 @@
 </template>
 
 <script>
+import { todayInfo } from "@/api/epidemic";
+
 export default {
   name: "todayEpidemic",
   data() {
@@ -51,6 +53,20 @@ export default {
       ],
       showNitce: true,
     };
+  },
+  mounted() {
+    this.todayEpidemic();
+  },
+  methods: {
+    todayEpidemic() {
+      todayInfo().then((res) => {
+        const { code, data } = res;
+        console.log(data);
+        if (code === 200) {
+          this.tabLists = data;
+        }
+      });
+    },
   },
 };
 </script>
