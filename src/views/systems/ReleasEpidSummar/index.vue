@@ -24,15 +24,20 @@
       <el-form-item label="其他不适">
         <el-switch v-model="ruleForm.otherDiscomfort"> </el-switch>
       </el-form-item>
+      <el-form-item label="疫苗接种">
+        <el-switch v-model="ruleForm.vaccineNum"> </el-switch>
+      </el-form-item>
 
       <el-form-item>
-        <el-button type="primary" @click="onSubmit">发布</el-button>
+        <el-button type="primary" @click="onSubmit(ruleForm)">发布</el-button>
       </el-form-item>
     </el-form>
   </div>
 </template>
 
 <script>
+import { publishTodayEpidemic } from "@/api/epidemic";
+
 export default {
   name: "ReleasEpidSummar",
   data() {
@@ -44,12 +49,49 @@ export default {
         otherDiscomfort: false,
         isNucleicAcid: false,
         isOutSchool: false,
+        vaccineNum: false,
       },
+      list: [],
     };
   },
   methods: {
-    onSubmit() {
-      console.log("发布");
+    async onSubmit(ruleForm) {
+      if (ruleForm.ishealthCode) {
+        this.list.push("healthCode");
+      }
+      if (ruleForm.isFever) {
+        this.list.push("isFever");
+      }
+      if (ruleForm.isCough) {
+        this.list.push("isCough");
+      }
+      if (ruleForm.otherDiscomfort) {
+        this.list.push("otherDiscomfort");
+      }
+      if (ruleForm.isNucleicAcid) {
+        this.list.push("isNucleicAcid");
+      }
+      if (ruleForm.isOutSchool) {
+        this.list.push("isOutSchool");
+      }
+      if (ruleForm.vaccineNum) {
+        this.list.push("vaccineNum");
+      }
+      publishTodayEpidemic(this.list).then((value) => {
+        const { code, message } = value;
+        if (code === 200) {
+          this.$message({
+            message: "发布成功",
+            type: "success",
+          });
+          setTimeout(() => {
+            this.loading = false;
+            this.$router.push({ path: this.redirect || "/sysHome" });
+          }, 0.1 * 100);
+        } else {
+          this.$message.error("发布失败" + message);
+        }
+      });
     },
   },
 };

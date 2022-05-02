@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="showNitce" class="s_notice">通知:有异常</div>
+    <div v-if="showNitce" class="s_notice">🔔‼️ 通知: 有红码异常</div>
     <div class="todaySwrap">
       <div v-for="(item, index) in tabLists" :key="{ index }" class="today-box">
         <div>{{ item.name }}</div>
@@ -11,7 +11,8 @@
 </template>
 
 <script>
-import { todayInfo } from "@/api/epidemic";
+import { todayInfo, todayException } from "@/api/epidemic";
+import { getRoleId } from "@/utils/auth";
 
 export default {
   name: "todayEpidemic",
@@ -51,11 +52,12 @@ export default {
           total: 200,
         },
       ],
-      showNitce: true,
+      showNitce: false,
     };
   },
   mounted() {
     this.todayEpidemic();
+    this.todayExce();
   },
   methods: {
     todayEpidemic() {
@@ -64,6 +66,21 @@ export default {
         console.log(data);
         if (code === 200) {
           this.tabLists = data;
+        }
+      });
+    },
+    todayExce() {
+      todayException().then((res) => {
+        const { code, data } = res;
+        console.log("测试返回值" + data);
+        if (code === 200) {
+          if (data > 0) {
+            console.log("测试roleId" + getRoleId());
+            if (getRoleId() === "2") {
+              console.log("测试roleId2" + getRoleId());
+              this.showNitce = true;
+            }
+          }
         }
       });
     },

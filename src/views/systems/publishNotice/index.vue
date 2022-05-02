@@ -20,6 +20,8 @@
 </template>
 
 <script>
+import { publicNotice } from "@/api/notice";
+
 export default {
   name: "PublishNotice",
   data() {
@@ -31,12 +33,25 @@ export default {
     };
   },
   methods: {
-    onPublish() {
-      console.log("发布");
+   async onPublish() {
+      publicNotice(this.form).then((value) => {
+        const { code, message } = value;
+        if (code === 200) {
+          this.$message({
+            message: "发布成功",
+            type: "success",
+          });
+          setTimeout(() => {
+            this.loading = false;
+            this.$router.push({ path: "/sysHome" });
+          }, 0.1 * 1000);
+        } else {
+          this.$message.error("发布失败" + message);
+        }
+      });
     },
   },
 };
 </script>
 
-<style>
-</style>
+<style></style>

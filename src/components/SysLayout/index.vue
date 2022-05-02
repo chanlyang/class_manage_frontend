@@ -9,8 +9,22 @@
             </b-navbar-item>
           </template>
           <template slot="end">
-            <b-navbar-item tag="div">
-              <b-navbar-item tag="div"> zhangsan </b-navbar-item>
+             <b-navbar-item tag="div">
+              <b-navbar-item tag="div">
+                <img
+                  :src="'http://127.0.0.1:8088' + imgUrl"
+                  alt="headUrl"
+                  style="height: 80px; border-radius: 30%"
+                />
+              </b-navbar-item>
+
+              <b-navbar-item tag="div">
+                {{ userName }}
+              </b-navbar-item>
+
+              <b-navbar-item tag="a" @click="logout">
+                👋 退出登录
+              </b-navbar-item>
             </b-navbar-item>
           </template>
         </b-navbar>
@@ -56,13 +70,6 @@ export default {
       logoImg: require("@/assets/image/logo.png"),
       userName: getUser(),
       imgUrl: getUserImg(),
-      notice: [
-        {
-          title: "",
-          noticeId: "",
-          content: "",
-        },
-      ],
       tabs: menuTab,
       activeName: "TodayEpidemic",
     };
@@ -73,11 +80,19 @@ export default {
       const { index } = targetName;
       console.log(index);
     },
+    async logout() {
+      this.$store.dispatch("user/logout").then(() => {
+        this.$message.info("退出登录成功");
+        setTimeout(() => {
+          this.$router.push({ path: this.redirect || "/" });
+        }, 500);
+      });
+    },
   },
 };
 </script>
 
-<style lang="less" >
+<style lang="less">
 .sys-mian {
   border: 1px solid #eee;
   padding: 0;

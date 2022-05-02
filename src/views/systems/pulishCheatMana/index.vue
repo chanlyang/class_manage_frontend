@@ -1,9 +1,11 @@
 <template>
   <div>
-    <div class="btn-cus">
-      <el-button type="primary" @click="onPublish">发布</el-button>
-    </div>
     <el-form ref="form" :model="form" label-width="80px">
+      <div class="btn-cus">
+        <el-form-item>
+          <el-button type="primary" @click="onPublish">发布</el-button>
+        </el-form-item>
+      </div>
       <el-form-item label="标题">
         <el-col :span="12">
           <el-input v-model="form.title" placeholder="请输入标题"></el-input>
@@ -26,6 +28,8 @@
 </template>
 
 <script>
+import { publish } from "@/api/anti";
+
 export default {
   name: "pulishCheatMana",
   data() {
@@ -39,9 +43,24 @@ export default {
       },
     };
   },
-  mounted: {
-    onPublish() {
+  methods: {
+   async onPublish() {
       console.log("发布");
+      publish(this.form).then((value) => {
+        const { code, message } = value;
+        if (code === 200) {
+          this.$message({
+            message: "发布成功",
+            type: "success",
+          });
+          setTimeout(() => {
+            this.loading = false;
+            this.$router.push({ path: "/sysHome" });
+          }, 0.1 * 1000);
+        } else {
+          this.$message.error("发布失败" + message);
+        }
+      });
     },
   },
 };

@@ -60,11 +60,11 @@ export default {
         }
       });
     },
-  },
-  handleCurrentChange(newPage) {
-    console.log("打印一下" + newPage);
-    this.currPage = newPage;
-    this.myHandle();
+    handleCurrentChange(newPage) {
+      console.log("打印一下" + newPage);
+      this.currPage = newPage;
+      this.myHandle();
+    },
   },
 };
 </script>

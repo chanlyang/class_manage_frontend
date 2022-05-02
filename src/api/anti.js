@@ -36,10 +36,10 @@ export function pageList(pageNo, size) {
 }
 
 //学生打卡列表
-export function studentPunch(pageNo, size, anitId) {
+export function studentPunch(pageNo, size, antiId) {
     return request({
         url: '/api/fraud/studentPunch',
         method: 'get',
-        params: { pageNo: pageNo, size: size, anitId: anitId }
+        params: { pageNo: pageNo, size: size, antiId: antiId }
     })
 }
