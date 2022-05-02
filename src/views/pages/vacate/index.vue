@@ -19,7 +19,7 @@
       <el-form-item label="请假时长">
         <el-col :span="5">
           <el-input
-            v-model="ruleForm.days"
+            v-model="ruleForm.applyLongTime"
             size="mini"
             placeholder="请输入请假天数"
           ></el-input>
@@ -38,6 +38,7 @@
             start-placeholder="开始日期"
             end-placeholder="结束日期"
             :picker-options="pickerOptions"
+            format="yyyy-MM-dd HH:mm:ss"
           >
           </el-date-picker>
         </el-col>
@@ -50,14 +51,18 @@
 </template>
 
 <script>
+import { apply } from "@/api/leave";
+
 export default {
   name: "Vacate",
   data() {
     return {
       ruleForm: {
         reason: "",
-        reason: "",
-        vacateDates: "",
+        applyLongTime: "",
+        startTime: "",
+        endTime: "",
+        vacateDates: [],
         pickerOptions: {
           shortcuts: [
             {
@@ -93,8 +98,24 @@ export default {
     };
   },
   methods: {
-    onSubmit() {
-      console.log("提交成功");
+    async onSubmit() {
+      this.ruleForm.startTime = this.ruleForm.vacateDates[0];
+      this.ruleForm.endTime = this.ruleForm.vacateDates[1];
+      apply(this.ruleForm).then((value) => {
+        const { code, message } = value;
+        if (code === 200) {
+          this.$message({
+            message: "请假申请已提交",
+            type: "success",
+          });
+          setTimeout(() => {
+            this.loading = false;
+            this.$router.push({ path: this.redirect || "/" });
+          }, 0.1 * 1000);
+        } else {
+          this.$message.error("请假申请提交失败" + message);
+        }
+      });
     },
   },
 };

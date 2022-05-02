@@ -1,7 +1,7 @@
 import request from '@/utils/request'
 
-//请假列表
-export function pageList(data) {
+//申请请假
+export function apply(data) {
     return request({
         url: '/api/leave/apply',
         method: 'post',
