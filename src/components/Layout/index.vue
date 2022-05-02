@@ -127,6 +127,7 @@ import { mapGetters } from "vuex";
 import menuTab from "@/router/menu.js";
 import components from "@/router/components";
 import { queryPageByAccept } from "@/api/notice";
+import noticeHandle from "@/views/pages/pastNotice/index";
 
 export default {
   name: "Layout",
@@ -177,6 +178,11 @@ export default {
           this.notice = data.list;
         }
       });
+    },
+    handleClick() {
+      if (tab.lable === "往期通知") {
+        noticeHandle();
+      }
     },
   },
 };

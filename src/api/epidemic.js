@@ -33,7 +33,7 @@ export function todayException() {
 export function fillDaily(data) {
     return request({
         url: '/api/epidemic/fillDaily',
-        method: 'get',
+        method: 'post',
         data: data
     })
 }

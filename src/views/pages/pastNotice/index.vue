@@ -16,6 +16,8 @@
 
 <script>
 import ContentList from "./contentList.vue";
+import { queryPageByAccept } from "@/api/notice";
+
 export default {
   name: "PastNotice",
   components: { ContentList },
@@ -23,37 +25,41 @@ export default {
   data() {
     return {
       activeName: "unaccepted",
+      totalCount: 10,
+      pageSize: 10,
+      currPage: 1,
       tabData: [
         { label: "未接受", name: "unaccepted", type: 1 },
         { label: "已接受", name: "accepted", type: 2 },
       ],
       list: [
         {
-          title: "测试标题",
-          date: "2022-05-01",
-          content: "测试数据",
-        },
-        {
-          title: "测试标题",
-          date: "2022-05-01",
-          content: "测试数据",
-        },
-        {
-          title: "测试标题",
-          date: "2022-05-01",
-          content: "测试数据",
+          noticeId: 1,
+          userName: "",
+          title: "",
+          content: "",
+          createTime: "",
         },
       ],
     };
   },
 
   methods: {
-    handleClick() {
-      console.log("获取数据");
+    noticeHandle() {
+      console.log("打印一下试试");
+      queryPageByAccept(currPage, pageSize).then((res) => {
+        const { code, data } = res;
+        console.log(data);
+        if (code === 200) {
+          this.notice = data.list;
+          this.totalCount = data.totalCount;
+          this.pageSize = data.pageSize;
+          this.currPage = data.currPage;
+        }
+      });
     },
   },
 };
 </script>
 
-<style>
-</style>
+<style></style>
