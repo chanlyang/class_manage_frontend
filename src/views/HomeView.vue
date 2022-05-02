@@ -68,6 +68,7 @@ export default {
 
   created() {
     //this.fetchBillboard();
+    console.log(123);
   },
   methods: {
     // async fetchBillboard() {

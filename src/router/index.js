@@ -30,6 +30,12 @@ const routes = [
     meta: { title: "学生首页" },
   },
   {
+    path: "/sysHome",
+    name: 'sysHome',
+    //component: () => import("@/views/systems/home/index.vue"),
+    meta: { title: "管理系统" },
+  },
+  {
     path: "/404",
     name: "404",
     component: () => import("@/views/error/404"),

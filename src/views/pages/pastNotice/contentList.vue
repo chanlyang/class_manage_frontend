@@ -24,6 +24,12 @@ export default {
     list: [],
     type: "",
   },
+  created() {
+    console.log("获取数据");
+  },
+  mounted() {
+    console.log("细腻");
+  },
   methods: {
     handAccept() {
       console.log("接受");
