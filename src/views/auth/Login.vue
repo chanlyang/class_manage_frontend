@@ -47,7 +47,6 @@
 <script>
 import { getRoleId } from "@/utils/auth";
 
-
 export default {
   name: "Login",
   data() {
@@ -94,13 +93,11 @@ export default {
                 type: "success",
                 duration: 2000,
               });
-              this.$store.dispatch("user/getInfo")
-              console.log(getRoleId())
+              this.$store.dispatch("user/getInfo");
               //上面的代码从cookie里获取到了roleId, 1是学生跳前台页面，2是老师跳后台管理界面
-              setTimeout(() => {
-                this.loading = false;
-                this.$router.push({ path: this.redirect || "/" });
-              }, 0.1 * 1000);
+              this.redirect = +getRoleId() === 1 ? "/" : "/sysHome";
+              this.$router.push({ path: this.redirect });
+              this.loading = false;
             })
             .catch(() => {
               this.loading = false;

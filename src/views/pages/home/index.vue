@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div class="home">
+    <Layout></Layout>
+    <!-- <div class="home">
       <div class="container">
         <div class="leftBox">
           <NumLabel
@@ -15,20 +16,27 @@
           <ChinaMap></ChinaMap>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
+// @ is an alias to /src
+
+import { getNotice } from "@/api/notice";
 import ChinaMap from "@/components/ChinaMap.vue";
 import NumLabel from "@/components/NumLabel.vue";
+import Layout from "@/components/Layout";
 //import Footer from "@/components/Layout/Footer";
 
 export default {
   name: "HomeView",
-  components: { ChinaMap, NumLabel },
+  components: { ChinaMap, NumLabel, Layout },
   data() {
     return {
+      notice: {
+        content: "",
+      },
       labeList: [
         {
           title: "现有确诊",
@@ -60,6 +68,7 @@ export default {
 
   created() {
     //this.fetchBillboard();
+    console.log(123);
   },
   methods: {
     // async fetchBillboard() {
