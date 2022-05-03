@@ -4,9 +4,10 @@
       <el-table-column prop="userId" label="学号" width="180">
       </el-table-column>
       <el-table-column prop="name" label="姓名" width="180"> </el-table-column>
-      <el-table-column prop="reason" label="开始时间"> </el-table-column>
-      <el-table-column prop="startTime" label="结束时间"> </el-table-column>
-      <el-table-column prop="endTime" label="状态"> </el-table-column>
+      <el-table-column prop="reason" label="请假原因"> </el-table-column>
+      <el-table-column prop="startTime" label="开始时间"> </el-table-column>
+      <el-table-column prop="endTime" label="结束时间"> </el-table-column>
+      <el-table-column prop="status" label="状态"> </el-table-column>
       <el-table-column prop="userName" label="审批人"> </el-table-column>
     </el-table>
     <el-pagination

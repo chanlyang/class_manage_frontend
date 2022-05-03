@@ -5,7 +5,7 @@
         <b-navbar class="container is-white" :fixed-top="true">
           <template slot="brand">
             <b-navbar-item tag="div">
-              <img :src="image/logo" alt="logo" />
+              <img :src="logoImg" alt="logo" />
             </b-navbar-item>
 
             <b-navbar-item
@@ -92,6 +92,7 @@ export default {
   components: { ChinaMap, NumLabel },
   data() {
     return {
+      logoImg: require("@/assets/image/logo.png"),
       labeList: [
         {
           title: "现有确诊",
