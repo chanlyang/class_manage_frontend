@@ -54,7 +54,7 @@ export default {
       punch(this.anitId).then((value) => {
         const { code, message } = value;
         this.$message({
-          message: "请假申请已提交",
+          message: "打卡成功",
           type: "success",
         });
         this.todayInfo();

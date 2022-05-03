@@ -5,6 +5,7 @@ const StudyCheat = () => import('@/views/pages/studyCheat/index.vue')
 const Vacate = () => import('@/views/pages/vacate/index.vue')
 const My = () => import('@/views/pages/my/index.vue')
 const EditInfo = () => import('@/views/pages/editInfo/index.vue')
+const CheatList = () => import('@/views/pages/cheatList/index.vue')
 const menuTabs = [
   {
 
@@ -34,6 +35,13 @@ const menuTabs = [
     component: StudyCheat,
     query: {},
   }, {
+    label: '往期反诈',
+    name: "CheatList",
+    url: "/cheatList",
+    component: CheatList,
+    query: {},
+  },
+  {
     label: '请假',
     name: "Vacate",
     url: "/vacate",

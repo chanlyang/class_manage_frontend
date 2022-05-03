@@ -1,7 +1,11 @@
 <template>
-  <div class="labelBox">
-    <div class="l-title">{{ title }}</div>
-    <div class="l-total">{{ total }}</div>
+  <div class="labelBox has-background-primary">
+    <div class="l-title">
+      <h1 class="has-text-white">{{ title }}</h1>
+    </div>
+    <div class="l-total">
+      <h1 class="title is-2 has-text-danger ">{{ total }}</h1>
+    </div>
   </div>
 </template>
 

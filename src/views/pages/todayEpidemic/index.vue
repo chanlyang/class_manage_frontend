@@ -3,8 +3,12 @@
     <div v-if="showNitce" class="s_notice">🔔‼️ 通知: 有红码异常</div>
     <div class="todaySwrap">
       <div v-for="(item, index) in tabLists" :key="{ index }" class="today-box">
-        <div>{{ item.name }}</div>
-        <div>{{ item.total }}</div>
+        <div class="box has-background-primary-dark">
+          <h1 class="title is-4 has-text-warning-dark">{{ item.name }}</h1>
+        </div>
+        <div class="column is-half is-offset-one-quarter">
+          <h1 class="title is-2 has-text-danger-dark">{{ item.total }}</h1>
+        </div>
       </div>
     </div>
   </div>
@@ -100,7 +104,8 @@ export default {
   .today-box {
     height: 200px;
     width: 230px;
-    background-color: white;
+    //background-color: white;
+    background-color: #046c7a;
     border-radius: 6px;
     box-shadow: 0 0.5em 1em -0.125em rgb(10 10 10 / 10%),
       0 0px 0 1px rgb(10 10 10 / 2%);

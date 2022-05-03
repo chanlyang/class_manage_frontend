@@ -2,13 +2,13 @@
   <div>
     <el-table :data="list" style="width: 100%">
       <el-table-column prop="title" label="标题" width="180"> </el-table-column>
-      <!-- <el-table-column prop="content" label="内容" width="180">
-      </el-table-column> -->
+      <el-table-column prop="userName" label="发布人" width="180">
+      </el-table-column>
       <el-table-column prop="createTime" label="时间"> </el-table-column>
       <el-table-column prop="opt" label="操作">
         <template slot-scope="scope">
-          <el-row :gutter="-1">
-            <el-col :span="6">
+          <el-row :gutter="20">
+            <el-col :span="110">
               <div>
                 <el-button
                   size="medium"
@@ -19,12 +19,11 @@
               </div>
             </el-col>
             <el-col :span="6">
-              <div>
+              <div v-if="scope.row.isPunch === 0">
                 <el-button
-                  size="medium"
-                  type="success"
-                  @click="showContent(scope.$index, scope.row)"
-                  >查看学生打卡信息</el-button
+                  @click="goPunch(scope.$index, scope.row)"
+                  type="warning"
+                  >去打卡</el-button
                 >
               </div>
             </el-col>
@@ -41,35 +40,6 @@
     >
     </el-pagination>
     <el-dialog
-      title="提示"
-      :visible.sync="dialogVisible"
-      width="60%"
-      :before-close="handleClose"
-    >
-      <el-table :data="sList" style="width: 100%">
-        <el-table-column prop="userId" label="学号" width="180">
-        </el-table-column>
-        <el-table-column prop="userName" label="姓名" width="180">
-        </el-table-column>
-        <el-table-column prop="status" label="状态">
-          <template slot-scope="scope">
-            <div>
-              {{ scope.row.status === 1 ? "已打卡" : "未打卡" }}
-            </div>
-          </template>
-        </el-table-column>
-      </el-table>
-      <el-pagination
-        @current-change="handleCurrentChange2"
-        layout="prev, pager, next"
-        :total="totalCount1"
-        :current-page="currPage1"
-        :page-size="pageSize1"
-      >
-      </el-pagination>
-    </el-dialog>
-
-    <el-dialog
       title="内容"
       :visible.sync="dialogVisible1"
       width="60%"
@@ -83,7 +53,7 @@
 </template>
 
 <script>
-import { pageList, studentPunch } from "@/api/anti";
+import { pageList, studentPunch, punch } from "@/api/anti";
 
 export default {
   name: "CheatList",
@@ -102,8 +72,10 @@ export default {
         {
           id: 0,
           title: "",
+          userName: "",
           content: "",
           createTime: "",
+          isPunch: 0,
         },
       ],
       sList: [
@@ -142,6 +114,17 @@ export default {
           this.pageSize1 = data.pageSize;
           this.currPage1 = data.currPage;
         }
+      });
+    },
+    goPunch(index, row) {
+      console.log("测试日志");
+      punch(row.id).then((value) => {
+        const { code, message } = value;
+        this.$message({
+          message: "打卡成功",
+          type: "success",
+        });
+        this.antiList();
       });
     },
     showHtmlContent(index, row) {

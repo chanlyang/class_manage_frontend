@@ -64,13 +64,15 @@
       </header>
     </el-header>
     <el-main>
-      <div class="box" v-if="token == null || token === ''">
-        🌟🌟🌟 ✨✨✨欢迎来到班级内部系统主页✨✨✨ 🌟🌟🌟
-        您还未登陆，快去登录吧！✨✨✨ 🌟🌟🌟
+      <div class="box has-background-warning-light" v-if="token == null || token === ''">
+        <h1 class="subtitle has-text-primary">🌟🌟🌟 ✨✨✨欢迎来到班级内部系统主页✨✨✨ 🌟🌟🌟
+        您还未登陆，快去登录吧！✨✨✨ 🌟🌟🌟</h1>
       </div>
-      <dev class="box" v-else>
+      <dev class="box has-background-warning-light" v-else>
+        <h1 class="subtitle has-text-primary">
         🌟🌟🌟 ✨✨✨欢迎来到班级内部系统主页✨✨✨ 🌟🌟🌟
         快去今日疫情填报和反诈打卡吧 ✨✨✨ 🌟🌟🌟
+        </h1>
       </dev>
 
       <div class="bs-sysMsg" v-if="token == null || token === ''">
