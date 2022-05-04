@@ -1,6 +1,11 @@
 <template>
   <div>
-    <div v-if="showNitce" class="s_notice">🔔‼️ 通知: 有红码异常</div>
+    <div class="s_notice">
+
+
+      <dev class="box has-background-danger-dark "><h1 class="title has-text-warning-dark">🔔‼️ 通知: 有红码异常</h1></dev>
+      
+      </div>
     <div class="todaySwrap">
       <div v-for="(item, index) in tabLists" :key="{ index }" class="today-box">
         <div class="box has-background-primary-dark">
@@ -95,7 +100,8 @@ export default {
 <style lang="less" scope>
 .s_notice {
   margin-bottom: 10px;
-  height: 40px;
+  height: 70px;
+  width: 900px;
   text-align: center;
 }
 .todaySwrap {
