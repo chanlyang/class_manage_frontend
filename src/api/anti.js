@@ -43,3 +43,12 @@ export function studentPunch(pageNo, size, antiId) {
         params: { pageNo: pageNo, size: size, antiId: antiId }
     })
 }
+
+//删除反诈信息
+export function deleteAnti(antiId) {
+    return request({
+        url: '/api/fraud/deleteAnti',
+        method: 'get',
+        params: { anitId: antiId }
+    })
+}

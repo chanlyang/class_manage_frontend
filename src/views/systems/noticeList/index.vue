@@ -7,14 +7,28 @@
       <el-table-column prop="createTime" label="时间"> </el-table-column>
       <el-table-column prop="opt" label="操作">
         <template slot-scope="scope">
-          <div>
-            <el-button
-              size="mini"
-              type="primary"
-              @click="showContent(scope.$index, scope.row)"
-              >查看</el-button
-            >
-          </div>
+          <el-row :gutter="20">
+            <el-col :span="6">
+              <div>
+                <el-button
+                  size="mini"
+                  type="primary"
+                  @click="showContent(scope.$index, scope.row)"
+                  >查看</el-button
+                >
+              </div>
+            </el-col>
+            <el-col :span="6">
+              <div>
+                <el-button
+                  size="mini"
+                  type="danger"
+                  @click="deleteInfo(scope.$index, scope.row)"
+                  >删除</el-button
+                >
+              </div>
+            </el-col>
+          </el-row>
         </template>
       </el-table-column>
     </el-table>
@@ -59,7 +73,7 @@
 </template>
 
 <script>
-import { pageNotice, acceptUser } from "@/api/notice";
+import { pageNotice, acceptUser, deleteNotice } from "@/api/notice";
 
 export default {
   name: "NoticeList",
@@ -118,6 +132,24 @@ export default {
           this.pageSize1 = data.pageSize;
           this.currPage1 = data.currPage;
         }
+      });
+    },
+    deleteInfo(index, row) {
+      this.$confirm(`确定进行["删除"]操作?`, "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      }).then(() => {
+        deleteNotice(row.id).then((res) => {
+          const { code, message } = res;
+          if (code === 200) {
+            this.$message({
+              message: "删除成功",
+              type: "success",
+            });
+             this.noticeList();
+          }
+        });
       });
     },
     handleCurrentChange(newPage) {

@@ -3,7 +3,7 @@
     <div class="s_notice">
 
 
-      <dev class="box has-background-danger-dark "><h1 class="title has-text-warning-dark">🔔‼️ 通知: 有红码异常</h1></dev>
+      <dev v-if="showNitce" class="box has-background-danger-dark "><h1 class="title has-text-warning-dark">🔔‼️ 通知: 有红码异常</h1></dev>
       
       </div>
     <div class="todaySwrap">

@@ -43,3 +43,12 @@ export function acceptUser(pageNo, size, noticeId) {
         params: { pageNo: pageNo, size: size, noticeId: noticeId }
     })
 }
+
+//删除公告
+export function deleteNotice(noticeId) {
+    return request({
+        url: '/api/notice/deleteNotice',
+        method: 'get',
+        params: { noitceId: noticeId }
+    })
+}

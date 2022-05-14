@@ -18,13 +18,24 @@
                 >
               </div>
             </el-col>
-            <el-col :span="6">
+            <el-col :span="9">
               <div>
                 <el-button
                   size="medium"
                   type="success"
                   @click="showContent(scope.$index, scope.row)"
                   >查看学生打卡信息</el-button
+                >
+              </div>
+            </el-col>
+
+            <el-col :span="5">
+              <div>
+                <el-button
+                  size="medium"
+                  type="danger"
+                  @click="deleteAnit(scope.$index, scope.row)"
+                  >删除</el-button
                 >
               </div>
             </el-col>
@@ -83,7 +94,7 @@
 </template>
 
 <script>
-import { pageList, studentPunch } from "@/api/anti";
+import { pageList, studentPunch, deleteAnti } from "@/api/anti";
 
 export default {
   name: "CheatList",
@@ -142,6 +153,24 @@ export default {
           this.pageSize1 = data.pageSize;
           this.currPage1 = data.currPage;
         }
+      });
+    },
+    deleteAnit(index, row) {
+       this.$confirm(`确定进行["删除"]操作?`, "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      }).then(() => {
+        deleteAnti(row.id).then((res) => {
+          const { code, message } = res;
+          if (code === 200) {
+            this.$message({
+              message: "删除成功",
+              type: "success",
+            });
+             this.antiList();
+          }
+        });
       });
     },
     showHtmlContent(index, row) {
